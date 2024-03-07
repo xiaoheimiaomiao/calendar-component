@@ -1,6 +1,9 @@
 import React from "react";
 import { CalendarProps } from ".";
 import { Dayjs } from "dayjs";
+// import CalendarLocale from "./locale/zh-CN";
+import LocaleContext from "./LocaleContext";
+import allLocales from "./locale";
 
 interface MonthCalendarProps extends CalendarProps {}
 
@@ -37,7 +40,11 @@ function getAllDays(data: Dayjs) {
 }
 
 // 渲染
-function renderDays(days: Array<{ date: Dayjs; currentMonth: boolean }>) {
+function renderDays(
+  days: Array<{ date: Dayjs; currentMonth: boolean }>,
+  dateRender: MonthCalendarProps["dateRender"],
+  dateInnerContent: MonthCalendarProps["dateInnerContent"]
+) {
   const rows = [];
   for (let i = 0; i < 6; i++) {
     const row = [];
@@ -50,7 +57,18 @@ function renderDays(days: Array<{ date: Dayjs; currentMonth: boolean }>) {
             (item.currentMonth ? " calendar-month-body-cell-current" : "")
           }
         >
-          {item.date.date()}
+          {dateRender ? (
+            dateRender(item.date)
+          ) : (
+            <div className="calendar-month-body-cell-date">
+              <div className="calendar-month-body-cell-date-value">
+                {item.date.date()}
+              </div>
+              <div className="calendar-month-body-cell-date-content">
+                {dateInnerContent?.(item.date)}
+              </div>
+            </div>
+          )}
         </div>
       );
     }
@@ -61,7 +79,21 @@ function renderDays(days: Array<{ date: Dayjs; currentMonth: boolean }>) {
   ));
 }
 export default function MonthCalendar(props: MonthCalendarProps) {
-  const weekList = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const localeContext = React.useContext(LocaleContext);
+
+  const CalendarLocale = allLocales[localeContext.locale];
+
+  const { dateRender, dateInnerContent } = props;
+
+  const weekList = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
   const allDays = getAllDays(props.value);
   return (
@@ -70,12 +102,15 @@ export default function MonthCalendar(props: MonthCalendarProps) {
         {weekList.map((week) => {
           return (
             <div className="calendar-month-week-list-item" key={week}>
-              {week}
+              {CalendarLocale.week[week]}
+              {/* {week} */}
             </div>
           );
         })}
       </div>
-      <div className="calendar-month-body">{renderDays(allDays)}</div>
+      <div className="calendar-month-body">
+        {renderDays(allDays, dateRender, dateInnerContent)}
+      </div>
     </div>
   );
 }
