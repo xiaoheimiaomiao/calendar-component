@@ -4,6 +4,7 @@ import { Dayjs } from "dayjs";
 // import CalendarLocale from "./locale/zh-CN";
 import LocaleContext from "./LocaleContext";
 import allLocales from "./locale";
+import cs from "classnames";
 
 interface MonthCalendarProps extends CalendarProps {}
 
@@ -43,7 +44,8 @@ function getAllDays(data: Dayjs) {
 function renderDays(
   days: Array<{ date: Dayjs; currentMonth: boolean }>,
   dateRender: MonthCalendarProps["dateRender"],
-  dateInnerContent: MonthCalendarProps["dateInnerContent"]
+  dateInnerContent: MonthCalendarProps["dateInnerContent"],
+  value: Dayjs
 ) {
   const rows = [];
   for (let i = 0; i < 6; i++) {
@@ -61,7 +63,14 @@ function renderDays(
             dateRender(item.date)
           ) : (
             <div className="calendar-month-body-cell-date">
-              <div className="calendar-month-body-cell-date-value">
+              <div
+                className={cs(
+                  "calendar-month-body-cell-date-value",
+                  value.format("YYYY-MM-DD") === item.date.format("YYYY-MM-DD")
+                    ? "calendar-month-body-cell-date-selected"
+                    : ""
+                )}
+              >
                 {item.date.date()}
               </div>
               <div className="calendar-month-body-cell-date-content">
@@ -83,7 +92,7 @@ export default function MonthCalendar(props: MonthCalendarProps) {
 
   const CalendarLocale = allLocales[localeContext.locale];
 
-  const { dateRender, dateInnerContent } = props;
+  const { value, dateRender, dateInnerContent } = props;
 
   const weekList = [
     "Sunday",
@@ -96,6 +105,7 @@ export default function MonthCalendar(props: MonthCalendarProps) {
   ];
 
   const allDays = getAllDays(props.value);
+
   return (
     <div className="calendar-month">
       <div className="calendar-month-week-list">
@@ -109,7 +119,7 @@ export default function MonthCalendar(props: MonthCalendarProps) {
         })}
       </div>
       <div className="calendar-month-body">
-        {renderDays(allDays, dateRender, dateInnerContent)}
+        {renderDays(allDays, dateRender, dateInnerContent, value)}
       </div>
     </div>
   );
