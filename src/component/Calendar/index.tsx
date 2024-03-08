@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dayjs } from "dayjs";
 import cs from "classnames";
 import "./index.scss";
@@ -19,16 +19,27 @@ export interface CalendarProps {
   onChange?: (date: Dayjs) => void;
 }
 export default function Calendar(props: CalendarProps) {
-  const { style, value, className, locale } = props;
+  const { style, value, className, locale, onChange } = props;
+
+  const [curValue, setCurValue] = useState<Dayjs>(value);
 
   // classname 合并
   const classNames = cs("calendar", props.className);
+
+  function selectHandler(date: Dayjs) {
+    setCurValue(date);
+    onChange?.(date);
+  }
 
   return (
     <LocaleContext.Provider value={{ locale: locale || navigator.language }}>
       <div className={classNames} style={style}>
         <Header />
-        <MonthCalendar {...props} />
+        <MonthCalendar
+          {...props}
+          value={curValue}
+          selectHandler={selectHandler}
+        />
       </div>
     </LocaleContext.Provider>
   );
