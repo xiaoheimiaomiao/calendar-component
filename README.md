@@ -1,0 +1,6 @@
+实现一个真正的Calendar组件。
+不在使用Date获取当前月的天数，而是使用dayjs
+组件包括切换月份的Header组件和每个月存放日期的MonthCalendar组件
+dateRender、dateInnerConent 用于修改日期单元格的内容，如当天活动安排，显示节日等
+locale是切换语言，国际化是把写死的文案换成资源包取值，这里只创建了英文、中文两种资源包
+通过createContext创建context对象来保存loxale配置，通过Provider修改呢其中的值，这样组件里就通过useContext把他取出，就知道当前语言了
