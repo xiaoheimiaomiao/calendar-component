@@ -40,7 +40,7 @@ import dayjs from "dayjs";
 
 # 效果预览
 
-[在线预览](一会儿你在这发个链接)
+[在线预览](https://xiaoheimiaomiao.github.io/calendar-component/)
 
 ![image](https://markdown.com.cn/assets/img/philly-magic-garden.9c0b4415.jpg)
 
