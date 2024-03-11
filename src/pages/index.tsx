@@ -6,7 +6,6 @@ export default function HomePage() {
     <div>
       <Calendar
         value={dayjs("2024-3-4")}
-        className={"aaa"}
         onChange={(date) => {
           console.log(date.format("YYYY-MM-DD"));
         }}
