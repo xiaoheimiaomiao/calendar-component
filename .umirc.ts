@@ -4,5 +4,6 @@ export default defineConfig({
   routes: [{ path: "/", component: "index" }],
   npmClient: "npm",
   outputPath: "docs",
-  base: "/calendar-component",
+  // base: "/calendar-component",
+  publicPath: "/calendar-component/",
 });
