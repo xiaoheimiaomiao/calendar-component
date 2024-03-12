@@ -29,12 +29,10 @@ import Calendar from "@/component/Calendar";
 import dayjs from "dayjs";
 
 <Calendar
-  value={dayjs(new Date().toLocaleDateString())}
   onChange={(date) => {
     console.log(date.format("YYYY-MM-DD"));
   }}
   locale="en-US"
-  //
 />;
 ```
 
@@ -42,15 +40,15 @@ import dayjs from "dayjs";
 
 [在线预览](https://xiaoheimiaomiao.github.io/calendar-component/)
 
-![image](https://markdown.com.cn/assets/img/philly-magic-garden.9c0b4415.jpg)
+![alt text](image.png)
 
 # 参数说明
 
-| 参数             | 说明                                                             |                  类型                   |   默认值 |
-| :--------------- | :--------------------------------------------------------------- | :-------------------------------------: | -------: |
-| value            | 当前日期                                                         |                 string                  | 当前时间 |
-| onChange         | 选择日期后的回调                                                 |        `(value: Dayjs) => void`         |        - |
-| locale           | 国际化                                                           |             en-US \| zh-CN              |    en-US |
-| dateRender       | 定制日期显示，会完全覆盖单元格                                   | (currentDate: Dayjs) => React.ReactNode |        - |
-| dateInnerContent | 定制日期单元格，内容会被添加到单元格内，只会在全屏日历下生效显示 | (currentDate: Dayjs) => React.ReactNode |        - |
-| className        | 日历组件外层 classname 会与 calendar 合并                        |                 string                  |        - |
+| 参数             | 说明                                      |                  类型                   |   默认值 |
+| :--------------- | :---------------------------------------- | :-------------------------------------: | -------: |
+| value            | 展示日期                                  |                  dayjs                  | 当前时间 |
+| onChange         | 选择日期后的回调                          |        `(value: Dayjs) => void`         |        - |
+| locale           | 国际化                                    |             en-US \| zh-CN              |    en-US |
+| dateRender       | 自定义单元格，返回内容覆盖单元格          | (currentDate: Dayjs) => React.ReactNode |        - |
+| dateInnerContent | 自定义单元格，内容会被添加到单元格内      | (currentDate: Dayjs) => React.ReactNode |        - |
+| className        | 日历组件外层 classname 会与 calendar 合并 |                 string                  |        - |

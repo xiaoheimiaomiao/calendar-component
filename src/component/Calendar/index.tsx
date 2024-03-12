@@ -7,7 +7,7 @@ import Header from "./Header";
 import LocaleContext from "./LocaleContext";
 
 export interface CalendarProps {
-  value: Dayjs;
+  value?: Dayjs;
   style?: React.CSSProperties;
   className?: string | string[];
   // 定制日期显示，会完全覆盖单元格
@@ -19,7 +19,13 @@ export interface CalendarProps {
   onChange?: (date: Dayjs) => void;
 }
 export default function Calendar(props: CalendarProps) {
-  const { style, value, className, locale, onChange } = props;
+  const {
+    style,
+    value = dayjs(Date.now()),
+    className,
+    locale,
+    onChange,
+  } = props;
 
   const [curValue, setCurValue] = useState<Dayjs>(value);
 

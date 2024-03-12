@@ -85,7 +85,7 @@ export default function MonthCalendar(props: MonthCalendarProps) {
                 <div
                   className={cs(
                     "calendar-month-body-cell-date-value",
-                    value.format("YYYY-MM-DD") ===
+                    value?.format("YYYY-MM-DD") ===
                       item.date.format("YYYY-MM-DD")
                       ? "calendar-month-body-cell-date-selected"
                       : ""
